@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable e) {
-                Log.e(LOG_TAG, "Exception!!");
+                Log.e(LOG_TAG, "Exception");
             }
 
             @Override
