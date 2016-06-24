@@ -1,9 +1,11 @@
 package com.thyago.rxjava;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import butterknife.BindView;
@@ -18,13 +20,14 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import rx.subjects.Subject;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
-
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private Unbinder mUnbinder;
 
@@ -70,13 +73,10 @@ public class MainActivity extends AppCompatActivity {
         mAsyncObservable
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<String>() {
-            @Override
-            public void call(String s) {
-                Log.d(LOG_TAG, "result=" + s);
-                setLoading(false, v);
-            }
-        });
+                .subscribe(s -> {
+                    Log.d(LOG_TAG, "result=" + s);
+                    setLoading(false, v);
+                });
     }
 
     @Override
@@ -87,12 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         mObservable = Observable
                 .from(new Integer[] {1, 2, 3, 4, 5, 6})
-                .map(new Func1<Integer, Integer>() {
-            @Override
-            public Integer call(Integer i) {
-                return i * i;
-            }
-        });
+                .map(i -> i * i);
 
         mAsyncObservable = Observable
                 .create(new Observable.OnSubscribe<String>() {
