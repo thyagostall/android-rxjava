@@ -7,6 +7,11 @@
     android:orientation="vertical"
     tools:context="com.thyago.rxjava.MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_part_1" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,5 +35,22 @@
         android:layout_height="wrap_content"
         android:text="@string/button_transformation_map"
         android:id="@+id/button_transformation_map" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_part_2" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chaining Observers"
+        android:id="@+id/button_chaining_observers" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chaining Observers++"
+        android:id="@+id/button_chaining_observers_plus_plus" />
 
 </LinearLayout>
