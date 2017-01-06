@@ -4,19 +4,36 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 
+import java.util.concurrent.TimeUnit;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private Unbinder mUnbinder;
+
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
+
+    @BindView(R.id.button_unsubscription)
+    Button mButtonUnsubscription;
+
+    Subscription mSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         mUnbinder.unbind();
+    }
+
+    protected void setLoading(boolean isLoading) {
+        mProgressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
     }
 
     @OnClick(R.id.button_hello_world)
@@ -146,14 +167,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.button_chaining_observers_plus_plus)
-    void onChainingObserverPlusPlus() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+    void onChainingObserverPlusPlusClicked() {
+        StrictMode.ThreadPolicy previousPolicy = StrictMode.getThreadPolicy();
+
+        StrictMode.ThreadPolicy permitAllPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(permitAllPolicy);
 
         Log.d(LOG_TAG, "Titles (null on 404)");
         URLRepository
                 .get()
-                .take(0)
                 .flatMap(Observable::from)
                 .flatMap(URLRepository::getTitle)
                 .subscribe(title -> Log.d(LOG_TAG, "" + title));
@@ -162,11 +184,56 @@ public class MainActivity extends AppCompatActivity {
         URLRepository
                 .get()
                 .flatMap(Observable::from)
+                .take(0)
                 .flatMap(URLRepository::getTitle)
                 .filter(title -> title != null)
                 .take(3)
                 .doOnNext(this::foo)
                 .subscribe(title -> Log.d(LOG_TAG, title));
+
+        StrictMode.setThreadPolicy(previousPolicy);
+    }
+
+    @OnClick(R.id.button_error_handling)
+    void onErrorHandlingClicked() {
+        Integer[] items = {1, 2, 3, 0, 0, 4, 5, 6, 1};
+        Observable.from(items)
+                .map(this::invert)
+                .subscribe(i -> Log.d(LOG_TAG, "Inverted: " + i), t -> Log.d(LOG_TAG, "Error: " + t.getMessage()));
+    }
+
+    protected int invert(int i) {
+        return 1 / i;
+    }
+
+    @OnClick(R.id.button_schedulers)
+    void onSchedulersClicked() {
+        Log.d(LOG_TAG, "Network happens on the IO thread");
+        setLoading(true);
+        URLRepository
+                .get()
+                .flatMap(Observable::from)
+                .flatMap(URLRepository::getTitle)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnCompleted(() -> setLoading(false))
+                .subscribe(title -> Log.d(LOG_TAG, "" + title));
+    }
+
+    @OnClick(R.id.button_unsubscription)
+    void onUnsubscriptionClicked() {
+        if (mSubscription == null) {
+            mButtonUnsubscription.setText(R.string.text_unsubscribe);
+
+            mSubscription = Observable.
+                    interval(1, TimeUnit.SECONDS).
+                    subscribe(t -> Log.d(LOG_TAG, "Time: " + t));
+        } else {
+            mButtonUnsubscription.setText(R.string.text_subscribe);
+
+            mSubscription.unsubscribe();
+            mSubscription = null;
+        }
     }
 
 }

@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context="com.thyago.rxjava.MainActivity">
 
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar"
+        android:visibility="gone" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,13 +50,36 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chaining Observers"
+        android:text="@string/button_chaining_observers"
         android:id="@+id/button_chaining_observers" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chaining Observers++"
+        android:text="@string/button_chaining_observers_plus_plus"
         android:id="@+id/button_chaining_observers_plus_plus" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_part_3" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_error_handling"
+        android:id="@+id/button_error_handling" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_schedulers"
+        android:id="@+id/button_schedulers" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_subscribe"
+        android:id="@+id/button_unsubscription" />
 
 </LinearLayout>
