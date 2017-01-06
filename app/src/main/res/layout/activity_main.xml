@@ -7,4 +7,28 @@
     android:orientation="vertical"
     tools:context="com.thyago.rxjava.MainActivity">
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_hello_world"
+        android:id="@+id/button_hello_world" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_using_just_hello_world"
+        android:id="@+id/button_hello_world_just" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_transformation_just"
+        android:id="@+id/button_transformation_just" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_transformation_map"
+        android:id="@+id/button_transformation_map" />
+
 </LinearLayout>

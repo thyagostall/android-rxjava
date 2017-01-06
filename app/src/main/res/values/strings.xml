@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RxJava</string>
+    <string name="button_hello_world">Hello World!</string>
+    <string name="button_using_just_hello_world">Using \'just\' (Hello World!)</string>
+    <string name="button_transformation_just">Transformation. [Just]</string>
+    <string name="button_transformation_map">Transformation. [Map]</string>
 </resources>
