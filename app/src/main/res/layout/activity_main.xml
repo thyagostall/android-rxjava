@@ -7,22 +7,4 @@
     android:orientation="vertical"
     tools:context="com.thyago.rxjava.MainActivity">
 
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/progress_bar"
-        android:visibility="gone" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/observe1"
-        android:text="Observe" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/observe2"
-        android:text="Async Work" />
-
 </LinearLayout>
