@@ -1,85 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_margin"
-    android:orientation="vertical"
+    android:fillViewport="true"
     tools:context="com.thyago.rxjava.MainActivity">
 
-    <ProgressBar
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/progress_bar"
-        android:visibility="gone" />
+        android:padding="@dimen/activity_margin"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_part_1" />
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress_bar"
+            android:visibility="gone" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_hello_world"
-        android:id="@+id/button_hello_world" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_part_1" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_using_just_hello_world"
-        android:id="@+id/button_hello_world_just" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_hello_world"
+            android:id="@+id/button_hello_world" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_transformation_just"
-        android:id="@+id/button_transformation_just" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_using_just_hello_world"
+            android:id="@+id/button_hello_world_just" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_transformation_map"
-        android:id="@+id/button_transformation_map" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_transformation_just"
+            android:id="@+id/button_transformation_just" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_part_2" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_transformation_map"
+            android:id="@+id/button_transformation_map" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_chaining_observers"
-        android:id="@+id/button_chaining_observers" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_part_2" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_chaining_observers_plus_plus"
-        android:id="@+id/button_chaining_observers_plus_plus" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_chaining_observers"
+            android:id="@+id/button_chaining_observers" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_part_3" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_chaining_observers_plus_plus"
+            android:id="@+id/button_chaining_observers_plus_plus" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_error_handling"
-        android:id="@+id/button_error_handling" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_part_3" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_schedulers"
-        android:id="@+id/button_schedulers" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_error_handling"
+            android:id="@+id/button_error_handling" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_subscribe"
-        android:id="@+id/button_unsubscription" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_schedulers"
+            android:id="@+id/button_schedulers" />
 
-</LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_subscribe"
+            android:id="@+id/button_unsubscription" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_part_4" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bind to Activity"
+            android:id="@+id/button_bind_to_activity" />
+
+    </LinearLayout>
+
+</ScrollView>

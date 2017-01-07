@@ -1,5 +1,6 @@
 package com.thyago.rxjava;
 
+import rx.Observable;
 import rx.Subscription;
 
 /**
@@ -7,5 +8,5 @@ import rx.Subscription;
  */
 
 public class ObservableCache {
-    public static Subscription subscription;
+    public static Observable<Long> cached;
 }

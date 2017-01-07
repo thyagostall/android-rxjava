@@ -5,14 +5,16 @@
     <string name="button_using_just_hello_world">Using \'just\' (Hello World!)</string>
     <string name="button_transformation_just">Transformation. [Just]</string>
     <string name="button_transformation_map">Transformation. [Map]</string>
-
-    <string name="text_part_1">Part 1</string>
-    <string name="text_part_2">Part 2</string>
-    <string name="text_part_3">Part 3</string>
-    <string name="text_subscribe">Subscribe</string>
-    <string name="text_unsubscribe">Unsubscribe</string>
     <string name="button_schedulers">Schedulers</string>
     <string name="button_error_handling">Error Handling</string>
     <string name="button_chaining_observers_plus_plus">Chaining Observers++</string>
     <string name="button_chaining_observers">Chaining Observers</string>
+
+    <string name="text_part_1">Part 1</string>
+    <string name="text_part_2">Part 2</string>
+    <string name="text_part_3">Part 3</string>
+    <string name="text_part_4">Part 4</string>
+
+    <string name="text_subscribe">Subscribe</string>
+    <string name="text_unsubscribe">Unsubscribe</string>
 </resources>

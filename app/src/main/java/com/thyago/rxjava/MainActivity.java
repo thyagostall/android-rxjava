@@ -33,19 +33,31 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.button_unsubscription)
     Button mButtonUnsubscription;
 
+    @BindView(R.id.button_bind_to_activity)
+    Button mButtonBindToActivity;
+
     Subscription mSubscription;
+    Subscription mCache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mUnbinder = ButterKnife.bind(this);
+
+        if (ObservableCache.cached != null) {
+            mCache = ObservableCache.cached
+                    .subscribe(t -> Log.d(LOG_TAG, "Time: " + t));
+            mButtonBindToActivity.setEnabled(false);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        if (mCache != null) {
+            mCache.unsubscribe();
+        }
         mUnbinder.unbind();
     }
 
@@ -225,15 +237,30 @@ public class MainActivity extends AppCompatActivity {
         if (mSubscription == null) {
             mButtonUnsubscription.setText(R.string.text_unsubscribe);
 
-            mSubscription = Observable.
-                    interval(1, TimeUnit.SECONDS).
-                    subscribe(t -> Log.d(LOG_TAG, "Time: " + t));
+            mSubscription = Observable
+                    .interval(1, TimeUnit.SECONDS)
+                    .subscribe(t -> Log.d(LOG_TAG, "Time: " + t));
         } else {
             mButtonUnsubscription.setText(R.string.text_subscribe);
 
             mSubscription.unsubscribe();
             mSubscription = null;
         }
+    }
+
+    @OnClick(R.id.button_bind_to_activity)
+    void onBindToActivityClicked() {
+        if (ObservableCache.cached != null) {
+            return;
+        }
+
+        ObservableCache.cached = Observable
+                .interval(1, TimeUnit.SECONDS)
+                .cache();
+
+        mCache = ObservableCache.cached
+                .subscribe(t -> Log.d(LOG_TAG, "Time: " + t));
+        mButtonBindToActivity.setEnabled(false);
     }
 
 }
