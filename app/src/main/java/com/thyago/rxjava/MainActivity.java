@@ -21,6 +21,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,8 +37,10 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.button_bind_to_activity)
     Button mButtonBindToActivity;
 
-    Subscription mSubscription;
-    Subscription mCache;
+    private Subscription mSubscription;
+    private Subscription mCache;
+
+    private CompositeSubscription mCompositeSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +48,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mUnbinder = ButterKnife.bind(this);
 
+        mCompositeSubscription = new CompositeSubscription();
+
         if (ObservableCache.cached != null) {
             mCache = ObservableCache.cached
                     .subscribe(t -> Log.d(LOG_TAG, "Time: " + t));
+            mCompositeSubscription.add(mCache);
             mButtonBindToActivity.setEnabled(false);
         }
     }
@@ -55,9 +61,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mCache != null) {
-            mCache.unsubscribe();
-        }
+        mCompositeSubscription.unsubscribe();
         mUnbinder.unbind();
     }
 
@@ -240,9 +244,11 @@ public class MainActivity extends AppCompatActivity {
             mSubscription = Observable
                     .interval(1, TimeUnit.SECONDS)
                     .subscribe(t -> Log.d(LOG_TAG, "Time: " + t));
+            mCompositeSubscription.add(mSubscription);
         } else {
             mButtonUnsubscription.setText(R.string.text_subscribe);
 
+            mCompositeSubscription.remove(mSubscription);
             mSubscription.unsubscribe();
             mSubscription = null;
         }
@@ -260,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
 
         mCache = ObservableCache.cached
                 .subscribe(t -> Log.d(LOG_TAG, "Time: " + t));
+        mCompositeSubscription.add(mCache);
         mButtonBindToActivity.setEnabled(false);
     }
 
